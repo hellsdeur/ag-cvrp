@@ -225,7 +225,7 @@ class GeneticAlgorithm:
 
             progress_bar(g+1)
 
-        print(self.gbest_list[-1])
+        print(f"\tBest fitness: {self.gbest_list[-1].fitness}")
 
 
 class MeanBehavior:
