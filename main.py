@@ -4,21 +4,24 @@ import folium
 from src.depot import Depot
 from src.ga import GeneticAlgorithm, MeanBehavior
 
-depot = Depot("https://raw.githubusercontent.com/ronaldcuri/meta-cvrpy/main/data/cvrp_castanhal.json")
+depot = Depot(
+    json_url="https://raw.githubusercontent.com/ronaldcuri/meta-cvrpy/main/data/cvrp_castanhal.json",
+    distances_path="distances_matrix.csv"
+)
 
 ga = GeneticAlgorithm(
     f=depot.f,
     individuals=depot.deliveries,
-    k=5,
+    k=50,
     minmax="min",
     selection="steady"
 )
 
 mb = MeanBehavior(
     ga=ga,
-    n_run=1,
-    mutation_rate=0.03,
-    generations=1
+    n_run=20,
+    mutation_rate=0.05,
+    generations=100
 )
 mb.process()
 description = mb.describe()

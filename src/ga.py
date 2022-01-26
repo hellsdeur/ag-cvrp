@@ -147,7 +147,7 @@ class GeneticAlgorithm:
 
             # fill the blank spots
             while len(self.population) < self.k:
-                self.population.append(Solution(self.individuals))
+                self.population.append(Solution(f=self.f, individuals=self.individuals))
 
         elif self.selection == "elitist":
             # only the mutated children are candidates to selection
@@ -168,7 +168,7 @@ class GeneticAlgorithm:
 
             # fill the blank spots
             while len(self.population) < self.k:
-                self.population.append(Solution(self.individuals))
+                self.population.append(Solution(f=self.f, individuals=self.individuals))
 
         elif self.selection == "steady":
             # mutated children are added to population
@@ -206,7 +206,7 @@ class GeneticAlgorithm:
         def progress_bar(i):
             pc = int(i / generations * 100)
             logic_char = 0 if i == 1 else int(pc / 2)
-            print(f"Running generation {i}/{generations}:|{'█' * logic_char + '.' * (50 - logic_char)}|{pc}%",
+            print(f"Current generation {i}/{generations}:|{'█' * logic_char + '.' * (50 - logic_char)}|{pc}%",
                   end='\r', flush=True)
 
         self.generate_population(self.k)
@@ -225,7 +225,7 @@ class GeneticAlgorithm:
 
             progress_bar(g+1)
 
-        print(f"\tBest fitness: {self.gbest_list[-1].fitness}")
+        print(f"\n\tBest fitness: {self.gbest_list[-1].fitness}")
 
 
 class MeanBehavior:
@@ -238,7 +238,7 @@ class MeanBehavior:
 
     def process(self):
         for i in range(self.n_run):
-            print(f"Execução {i + 1}/{self.n_run}")
+            print(f"Run {i + 1}/{self.n_run}")
             current_ga = deepcopy(self.ga)
             current_ga.run(mutation_rate=self.mutation_rate, generations=self.generations)
             self.run_list.append(current_ga)
